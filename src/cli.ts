@@ -11,7 +11,7 @@ import { RootPathError, scanMarkdownFiles } from './scan.js';
 import type { FileStatistics, ScanResult, Tokenizer } from './types.js';
 
 export const USAGE =
-  'Usage: mdzh-stats <directory> [--json]\n' +
+  'Usage: mdzh-stats <file-or-directory> [--json]\n' +
   '       mdzh-stats --help\n' +
   '       mdzh-stats --version\n';
 

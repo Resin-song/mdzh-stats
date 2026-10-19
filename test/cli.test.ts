@@ -64,6 +64,27 @@ describe('CLI pipeline', () => {
     ]);
   });
 
+  it('analyzes a single Markdown file path', async () => {
+    const { root } = await fixture();
+    await writeUtf8(root, 'm.md', '写作、写作、时间。');
+    const { stdout, stderr, deps } = capture();
+
+    const code = await run([join(root, 'm.md'), '--json'], deps);
+
+    expect(code).toBe(0);
+    expect(stderr.join('')).toBe('');
+    expect(JSON.parse(stdout.join(''))).toEqual([
+      {
+        file: 'm.md',
+        chineseCharacters: 6,
+        topWords: [
+          { word: '写作', count: 2 },
+          { word: '时间', count: 1 },
+        ],
+      },
+    ]);
+  });
+
   it('emits the human table for successful files', async () => {
     const { root } = await fixture();
     await writeUtf8(root, 'a.md', '写作、写作、时间。');

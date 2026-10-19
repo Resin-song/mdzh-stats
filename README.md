@@ -1,7 +1,7 @@
 # mdzh-stats
 
-Count Chinese characters and the top 10 informative Chinese words in every
-Markdown file under a directory.
+Count Chinese characters and the top 10 informative Chinese words in one
+Markdown file or every Markdown file under a directory.
 
 ## Requirements
 
@@ -18,8 +18,8 @@ npm link
 ## Usage
 
 ```powershell
-mdzh-stats <directory>
-mdzh-stats <directory> --json
+mdzh-stats <file-or-directory>
+mdzh-stats <file-or-directory> --json
 mdzh-stats --help
 mdzh-stats --version
 ```

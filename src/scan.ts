@@ -1,5 +1,5 @@
 import { readdir, stat } from 'node:fs/promises';
-import { join, relative, resolve, sep } from 'node:path';
+import { basename, join, relative, resolve, sep } from 'node:path';
 import { compareCodePoints } from './ordering.js';
 import type { Diagnostic, ScanResult, ScannedFile } from './types.js';
 
@@ -37,8 +37,19 @@ export async function scanMarkdownFiles(root: string): Promise<ScanResult> {
   } catch (error) {
     throw new RootPathError(`Cannot access root "${root}": ${errorMessage(error)}`);
   }
+  if (rootStat.isFile()) {
+    return {
+      files: [
+        {
+          absolutePath: absoluteRoot,
+          displayPath: basename(absoluteRoot),
+        },
+      ],
+      diagnostics: [],
+    };
+  }
   if (!rootStat.isDirectory()) {
-    throw new RootPathError(`Root is not a directory: ${root}`);
+    throw new RootPathError(`Input path is not a file or directory: ${root}`);
   }
 
   const files: ScannedFile[] = [];

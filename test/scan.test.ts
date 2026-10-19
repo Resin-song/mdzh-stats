@@ -58,11 +58,27 @@ describe('scanMarkdownFiles', () => {
     expect(shouldEnterDirectory('notes', false)).toBe(true);
   });
 
-  it('throws RootPathError for a non-directory root', async () => {
+  it('returns a single file when the input is a regular file', async () => {
     const { root } = await fixture();
     const file = join(root, 'file.md');
     await writeFile(file, '正文', 'utf8');
 
-    await expect(scanMarkdownFiles(file)).rejects.toBeInstanceOf(RootPathError);
+    const result = await scanMarkdownFiles(file);
+
+    expect(result.files).toEqual([
+      {
+        absolutePath: file,
+        displayPath: 'file.md',
+      },
+    ]);
+    expect(result.diagnostics).toEqual([]);
+  });
+
+  it('throws RootPathError for a missing input path', async () => {
+    const { root } = await fixture();
+
+    await expect(
+      scanMarkdownFiles(join(root, 'missing.md')),
+    ).rejects.toBeInstanceOf(RootPathError);
   });
 });

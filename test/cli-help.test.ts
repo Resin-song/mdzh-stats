@@ -67,7 +67,7 @@ describe('CLI metadata', () => {
       });
 
       expect(result.code).toBe(0);
-      expect(result.stdout).toContain('Usage: mdzh-stats <directory>');
+      expect(result.stdout).toContain('Usage: mdzh-stats <file-or-directory>');
       expect(result.stderr).toBe('');
     } finally {
       await rm(temp, { recursive: true, force: true });
