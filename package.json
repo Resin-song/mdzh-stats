@@ -1,0 +1,38 @@
+{
+  "name": "mdzh-stats",
+  "version": "0.1.0",
+  "description": "Count Chinese characters and top words in Markdown files",
+  "type": "module",
+  "bin": {
+    "mdzh-stats": "dist/cli.js"
+  },
+  "files": [
+    "dist/",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@node-rs/jieba": "^1.10.0",
+    "cli-table3": "^0.6.5",
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/mdast": "^4.0.4",
+    "@types/node": "^24.0.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.2.0"
+  }
+}
