@@ -102,7 +102,6 @@ Create `package.json` with this content:
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
-    "@types/cli-table3": "^0.6.5",
     "@types/mdast": "^4.0.4",
     "@types/node": "^24.0.0",
     "typescript": "^5.8.0",
@@ -1669,7 +1668,7 @@ node dist/cli.js $fixture
 node dist/cli.js $fixture --json
 ```
 
-Expected: the table contains `a.md` and `写作(2)`; JSON is valid, reports 6 Chinese characters, and contains no `不应统计`.
+Expected: the table contains `a.md` and `写作(2)`; JSON is valid, reports 8 Chinese characters, and contains no `不应统计`.
 
 Remove the fixture afterward:
 

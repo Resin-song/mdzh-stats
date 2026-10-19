@@ -72,6 +72,22 @@ No user intervention decisions yet.
 
 ---
 
+## Execution Status
+
+- [✓] Task 1: TypeScript/npm scaffold and metadata commands
+- [✓] Task 2: shared contracts and deterministic scanner
+- [✓] Task 3: Markdown prose extraction
+- [✓] Task 4: Chinese count, jieba adapter, stopwords, and ranking
+- [✓] Task 5: table and JSON renderers
+- [✓] Task 6: CLI pipeline and exit semantics
+- [✓] Task 7: README, package inspection, install smoke, and acceptance verification
+
+**Execution Note:** The planned `@types/cli-table3` package does not exist in npm; it was removed during dependency preflight. `cli-table3` provides the declarations needed by the strict TypeScript build.
+
+**Verification:** `npm run typecheck` passed; `npm test` passed 27/27 tests; `npm run build` passed; `npm pack --dry-run --json` contained only README, `dist/`, and `package.json`; the packed artifact installed and its `mdzh-stats --help` entry printed usage.
+
+---
+
 ## Context Reference
 
 ### Source Spec Summary
