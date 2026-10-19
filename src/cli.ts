@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import { readFile } from 'node:fs/promises';
-import { readFileSync as readPackageFile } from 'node:fs';
-import { pathToFileURL } from 'node:url';
+import { realpathSync, readFileSync as readPackageFile } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import { analyzeProse, createJiebaTokenizer } from './analyze.js';
 import { extractProse } from './extract.js';
@@ -142,7 +142,21 @@ export async function run(
   return hadFailure ? 1 : 0;
 }
 
-const invokedPath = process.argv[1];
-if (invokedPath && import.meta.url === pathToFileURL(invokedPath).href) {
+function isDirectInvocation(): boolean {
+  const invokedPath = process.argv[1];
+  if (!invokedPath) {
+    return false;
+  }
+  try {
+    return (
+      realpathSync(invokedPath) ===
+      realpathSync(fileURLToPath(import.meta.url))
+    );
+  } catch {
+    return false;
+  }
+}
+
+if (isDirectInvocation()) {
   process.exitCode = await run(process.argv.slice(2));
 }
